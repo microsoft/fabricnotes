@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric Notes - Simple drawings illustrating the main concepts of Microsoft Fabric</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/fabric-notes-ico.png" type="image/png">
+    {{#IsProductionBuild}}
+    <link href="/fabricnotes.css" rel="stylesheet">
+    {{/IsProductionBuild}}
+    {{^IsProductionBuild}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{/IsProductionBuild}}
+</head>
+<body>
+    
+    <div class="flex flex-col min-h-screen">
+        <header class="mt-24 text-center space-y-5">
+          <p class="max-w-lg mx-auto"><img class="mx-auto" src="images/fabric-notes-header.svg" alt="Fabric Notes" /></p>
+          <p class="text-xl mx-4">Simple drawings illustrating the main concepts of <span class="font-bold text-teal-700">Microsoft Fabric</span> to empower anyone to build stuff on Fabric.</p>
+          <div class="inline-block content-center">
+          <a href="https://github.com/microsoft/fabricnotes" class=""><div class="text-white bg-teal-700 border border-teal-900 rounded-md shadow-sm px-2 py-2 items-center hover:shadow-lg hover:shadow-teal-700  hover:bg-teal-700">      
+            Go to GitHub to request a new drawing ⭐
+            </div>
+            </a>
+          </div>
+        </header>
+      
+        <main class="flex-grow max-w-3xl mt-12 mx-auto">
+            <ul class="grid grid-cols-1 sm:grids-cols-2 md:grid-cols-3 gap-4">            
+            {{#Notes}}
+            <li class="bg-yellow-100 border border-2 border-dashed border-yellow-500">
+                <a class="text-center" href="" target="_blank">
+                    <img src="images/notes/{{FileNameId}}.png" />
+                    <span class="text-center">{{Title}}</span>
+                </a>
+            </li>
+            
+            {{/Notes}}      
+          </ul>
+        </main>
+      
+        <footer class="bg-teal-950 text-white px-10 py-10">
+          <p>With 💚, from the Microsoft Data Cloud Advocacy Team.</p>
+          <p class="text-teal-500">Last updated: {{UpdateDate}} </p>
+        </footer>
+      </div>
+      
+
+</body>
+</html>
