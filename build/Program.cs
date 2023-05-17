@@ -43,6 +43,7 @@ Directory.CreateDirectory(Path.Combine(outputfolder, "images", "notes"));
 // Read markdown file
 
 var allNotes = Directory.GetFiles("notes", "*.md", SearchOption.AllDirectories).ToList();
+allNotes.Sort();
 
 var allNotesMetadata = new List<NoteMetadata>();
 

@@ -38,10 +38,10 @@
         <main class="flex-grow max-w-3xl mt-12 mx-auto">
             <ul class="grid grid-cols-1 sm:grids-cols-2 md:grid-cols-3 gap-4">            
             {{#Notes}}
-            <li class="bg-yellow-100 border border-2 border-dashed border-yellow-500">
-                <a class="text-center" href="" target="_blank">
+            <li class="bg-yellow-100 hover:bg-yellow-300 border border-2 border-dashed border-yellow-500">
+                <a class="text-center" href="images/notes/{{FileNameId}}.png" target="_blank">
                     <img src="images/notes/{{FileNameId}}.png" />
-                    <span class="text-center">{{Title}}</span>
+                    <div class="text-center mx-2 my-2">{{Title}}</div>
                 </a>
             </li>
             
