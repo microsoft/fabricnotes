@@ -7,5 +7,8 @@ public class NoteMetadata
     [YamlMember(Alias = "title")]
     public string Title { get; set; }
 
+    [YamlMember(Alias = "imgalt")]
+    public string ImageDescription { get; set; }
+
     public string FileNameId { get; set; }
 }
