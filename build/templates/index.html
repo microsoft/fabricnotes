@@ -24,7 +24,7 @@
 <body>
     
     <div class="flex flex-col min-h-screen">
-        <header class="mt-24 text-center space-y-5">
+        <header class="mt-24 px-4 text-center space-y-5">
           <p class="max-w-lg mx-auto"><img class="mx-auto" src="images/fabric-notes-header.svg" alt="Fabric Notes" /></p>
           <p class="text-xl mx-4">Simple drawings illustrating the main concepts of <span class="font-bold text-teal-700">Microsoft Fabric</span> to empower anyone to build stuff on Fabric.</p>
           <p class="text-gray-700">Inspired by <a class="text-blue-600" href="https://azurecosmosdb.github.io/CosmicNotes/">🌍 Cosmic Notes</a></p>
@@ -36,16 +36,24 @@
           </div>
         </header>
       
-        <main class="flex-grow max-w-3xl mt-12 mx-auto">
-            <ul class="grid grid-cols-1 sm:grids-cols-2 md:grid-cols-3 gap-4">            
+        <main class="flex-grow max-w-4xl px-4 mx-auto my-12">
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">            
             {{#Notes}}
-            <li class="bg-yellow-100 hover:bg-yellow-300 border border-2 border-dashed border-yellow-500">
-                <a class="text-center" href="images/notes/{{FileNameId}}.png" target="_blank">
-                    <img src="images/notes/{{FileNameId}}.png" />
-                    <div class="text-center mx-2 my-2">{{Title}}</div>
-                </a>
-            </li>
-            
+              <li class="group relative inline-block shadow-xl rounded-xl">
+                <span class="absolute inset-0 rounded-xl group-hover:border-2 group-hover:border-dashed group-hover:border-teal-600"></span>
+                <div class="flex h-full rounded-xl bg-gradient-to-tl from-teal-500 via-green-500 to-yellow-500 p-0.5 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:shadow-sm">
+                  <div class="rounded-xl bg-white pb-1 flex-grow">
+                    <a class="text-center overflow-hidden w-full" href="images/notes/{{FileNameId}}.png" target="_blank">
+                      <picture>
+                        <source type="image/webp" srcset="images/notes/{{FileNameId}}-small.webp">
+                        <img width="348" height="216" class="rounded-xl" loading="lazy" decoding="async" src="images/notes/{{FileNameId}}-small.png" />
+                      </picture>
+                      <div class="m-2 text-center">{{Title}}</div>
+                    </a>
+                  </div>
+                </div>
+              </li>
+
             {{/Notes}}      
           </ul>
         </main>

@@ -4,7 +4,8 @@ using Markdig.Extensions.Yaml;
 using Markdig.Syntax;
 using Stubble.Core.Builders;
 using YamlDotNet.Serialization;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 
 
@@ -68,6 +69,12 @@ foreach (var note in allNotes)
     var noteFileNameId = Path.GetFileNameWithoutExtension(note);
     noteMetadata.FileNameId = noteFileNameId;
     File.Copy(Path.Combine("notes", $"{noteFileNameId}.png"), Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}.png"), true);
+
+    // Generate thumbnails 384x216
+    using var image = Image.Load(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}.png"));
+    image.Mutate(x => x.Resize(384, 216));
+    image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.png"));
+    image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.webp"));
 
     allNotesMetadata.Add(noteMetadata);
 }
