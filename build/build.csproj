@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.31.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
     <PackageReference Include="Stubble.Core" Version="1.10.8" />
     <PackageReference Include="YamlDotNet" Version="13.1.0" />
   </ItemGroup>
