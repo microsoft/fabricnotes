@@ -1,9 +1,27 @@
+<p align="center" >
+<img src="build/public/images/fabric-notes-header.png" />
+
+<span>A collection of simple drawings illustrating the main concepts of <a href="https://fabric.microsoft.com">Microsoft Fabric</a> to empower anyone to build stuff on Fabric.</span>
+![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/fabricnotes?style=social)
+
+## **[Browse all the notes here](https://microsoft.github.io/fabricnotes)**
+
+</p>
+
+
+<br />
+<br />
+<br />
+<hr/>
 
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+
+**Please open an issue before starting to work on a note**. We are creating a set of templates to 
+help you create notes with the same "look & feel". 
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
