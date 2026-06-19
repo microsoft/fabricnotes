@@ -68,10 +68,19 @@ foreach (var note in allNotes)
     // Copy image
     var noteFileNameId = Path.GetFileNameWithoutExtension(note);
     noteMetadata.FileNameId = noteFileNameId;
-    File.Copy(Path.Combine("notes", $"{noteFileNameId}.png"), Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}.png"), true);
+
+    var sourceImagePath = Path.Combine("notes", $"{noteFileNameId}.png");
+    if (!File.Exists(sourceImagePath))
+    {
+        Console.WriteLine($"Note {noteFileNameId} has no image ({noteFileNameId}.png). Skipping");
+        continue;
+    }
+
+    var destImagePath = Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}.png");
+    File.Copy(sourceImagePath, destImagePath, true);
 
     // Generate thumbnails 384x216
-    using var image = Image.Load(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}.png"));
+    using var image = Image.Load(destImagePath);
     image.Mutate(x => x.Resize(384, 216));
     image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.png"));
     image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.webp"));
@@ -82,10 +91,15 @@ foreach (var note in allNotes)
 // 4. Generate index.html
 var stubble = new StubbleBuilder().Build();
 
+var newNotes = allNotesMetadata.Where(n => n.IsNew).ToList();
+var originalNotes = allNotesMetadata.Where(n => !n.IsNew).ToList();
+
 var templateContext = new
 {
     UpdateDate = DateTime.Now.ToString("dddd dd MMMM yyyy HH:mm:ss"),
-    Notes = allNotesMetadata,
+    NewNotes = newNotes,
+    HasNewNotes = newNotes.Count > 0,
+    Notes = originalNotes,
     IsProductionBuild = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true"
 };
 

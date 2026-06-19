@@ -39,6 +39,34 @@
         </header>
       
         <main class="flex-grow max-w-4xl px-4 mx-auto my-12">
+            {{#HasNewNotes}}
+            <section class="mb-12">
+              <h2 class="text-2xl font-bold text-teal-700 mb-1">✨ New series</h2>
+              <p class="text-gray-700 mb-4">Our latest set of notes, fresh off the sketchpad.</p>
+              <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+              {{#NewNotes}}
+                <li class="group relative inline-block shadow-xl rounded-xl">
+                  <span class="absolute top-2 right-2 z-10 rounded-full bg-teal-700 text-white text-xs font-bold px-2 py-1 shadow">New</span>
+                  <span class="absolute inset-0 rounded-xl group-hover:border-2 group-hover:border-dashed group-hover:border-teal-600"></span>
+                  <div class="flex h-full rounded-xl bg-gradient-to-tl from-teal-500 via-green-500 to-yellow-500 p-0.5 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:shadow-sm">
+                    <div class="rounded-xl bg-white pb-1 flex-grow">
+                      <a class="text-center overflow-hidden w-full" href="images/notes/{{FileNameId}}.png" target="_blank">
+                        <picture>
+                          <source type="image/webp" srcset="images/notes/{{FileNameId}}-small.webp">
+                          <img width="348" height="216" class="rounded-xl" loading="lazy" decoding="async" src="images/notes/{{FileNameId}}-small.png" alt="{{ImageDescription}}" />
+                        </picture>
+                        <div class="m-2 text-center">{{Title}}</div>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+
+              {{/NewNotes}}
+              </ul>
+            </section>
+
+            <h2 class="text-2xl font-bold text-teal-700 mb-4">Fabric Notes</h2>
+            {{/HasNewNotes}}
             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">            
             {{#Notes}}
               <li class="group relative inline-block shadow-xl rounded-xl">
