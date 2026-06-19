@@ -22,7 +22,20 @@ MarkdownPipeline Pipeline
 
 Console.WriteLine("Fabric Notes Generator");
 
-string outputfolder = "dist";
+string currentDir = Directory.GetCurrentDirectory();
+string repoRoot = Directory.Exists(Path.Combine(currentDir, "notes"))
+    ? currentDir
+    : Path.GetFullPath(Path.Combine(currentDir, ".."));
+
+if (!Directory.Exists(Path.Combine(repoRoot, "notes")))
+{
+    throw new DirectoryNotFoundException($"Could not find notes folder from current directory: {currentDir}");
+}
+
+string outputfolder = Path.Combine(repoRoot, "dist");
+string publicFolder = Path.Combine(repoRoot, "build", "public");
+string notesFolder = Path.Combine(repoRoot, "notes");
+string templateFile = Path.Combine(repoRoot, "build", "templates", "index.html");
 
 Console.WriteLine("Creating output folder");
 if (Directory.Exists(outputfolder))
@@ -34,7 +47,7 @@ Directory.CreateDirectory(outputfolder);
 
 // 1. Copy build/public folder to outputfolder
 Console.WriteLine($"Copying build/public folder to {outputfolder}");
-DirectoryCopy("build/public", outputfolder, true);
+DirectoryCopy(publicFolder, outputfolder, true);
 
 Directory.CreateDirectory(Path.Combine(outputfolder, "images", "notes"));
 
@@ -43,7 +56,7 @@ Directory.CreateDirectory(Path.Combine(outputfolder, "images", "notes"));
 // 3. For each note - For each markdown file in notes folder
 // Read markdown file
 
-var allNotes = Directory.GetFiles("notes", "*.md", SearchOption.AllDirectories).ToList();
+var allNotes = Directory.GetFiles(notesFolder, "*.md", SearchOption.AllDirectories).ToList();
 allNotes.Sort();
 
 var allNotesMetadata = new List<NoteMetadata>();
@@ -69,7 +82,7 @@ foreach (var note in allNotes)
     var noteFileNameId = Path.GetFileNameWithoutExtension(note);
     noteMetadata.FileNameId = noteFileNameId;
 
-    var sourceImagePath = Path.Combine("notes", $"{noteFileNameId}.png");
+    var sourceImagePath = Path.Combine(notesFolder, $"{noteFileNameId}.png");
     if (!File.Exists(sourceImagePath))
     {
         Console.WriteLine($"Note {noteFileNameId} has no image ({noteFileNameId}.png). Skipping");
@@ -103,7 +116,7 @@ var templateContext = new
     IsProductionBuild = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true"
 };
 
-using (StreamReader streamReader = new StreamReader(Path.Combine("build", "templates", "index.html"), Encoding.UTF8))
+using (StreamReader streamReader = new StreamReader(templateFile, Encoding.UTF8))
 {
     var output = stubble.Render(streamReader.ReadToEnd(), templateContext);
     File.WriteAllText(Path.Combine(outputfolder, "index.html"), output);
