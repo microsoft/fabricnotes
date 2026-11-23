@@ -98,6 +98,7 @@ foreach (var note in allNotes)
     image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.png"));
     image.Save(Path.Combine(outputfolder, "images", "notes", $"{noteFileNameId}-small.webp"));
 
+    noteMetadata.CreationOrder = allNotesMetadata.Count;
     allNotesMetadata.Add(noteMetadata);
 }
 

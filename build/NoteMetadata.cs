@@ -16,4 +16,5 @@ public class NoteMetadata
     public bool IsNew { get; set; }
 
     public string FileNameId { get; set; }
+    public int CreationOrder { get; set; }
 }

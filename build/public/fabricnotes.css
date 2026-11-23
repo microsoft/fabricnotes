@@ -577,6 +577,10 @@ video {
   margin-bottom: 1rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
 .mt-24 {
   margin-top: 6rem;
 }
@@ -633,6 +637,14 @@ video {
   align-items: center;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
@@ -661,6 +673,11 @@ video {
 
 .border {
   border-width: 1px;
+}
+
+.border-teal-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(15 118 110 / var(--tw-border-opacity));
 }
 
 .border-teal-900 {
