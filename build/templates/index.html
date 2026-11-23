@@ -39,13 +39,20 @@
         </header>
       
         <main class="flex-grow max-w-4xl px-4 mx-auto my-12">
+            <div class="flex items-center justify-end gap-2 mb-6">
+              <label class="text-gray-700" for="note-sort">Sort notes</label>
+              <select class="border border-teal-700 rounded-md bg-white px-2 py-1" id="note-sort">
+                <option value="asc">Oldest first</option>
+                <option value="desc">Newest first</option>
+              </select>
+            </div>
             {{#HasNewNotes}}
             <section class="mb-12">
               <h2 class="text-2xl font-bold text-teal-700 mb-1">✨ New series</h2>
               <p class="text-gray-700 mb-4">Our latest set of notes, fresh off the sketchpad.</p>
-              <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+              <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 " data-note-list>
               {{#NewNotes}}
-                <li class="group relative inline-block shadow-xl rounded-xl">
+                <li class="group relative inline-block shadow-xl rounded-xl" data-created-order="{{CreationOrder}}">
                   <span class="absolute top-2 right-2 z-10 rounded-full bg-teal-700 text-white text-xs font-bold px-2 py-1 shadow">New</span>
                   <span class="absolute inset-0 rounded-xl group-hover:border-2 group-hover:border-dashed group-hover:border-teal-600"></span>
                   <div class="flex h-full rounded-xl bg-gradient-to-tl from-teal-500 via-green-500 to-yellow-500 p-0.5 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:shadow-sm">
@@ -67,9 +74,9 @@
 
             <h2 class="text-2xl font-bold text-teal-700 mb-4">Fabric Notes</h2>
             {{/HasNewNotes}}
-            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">            
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 " data-note-list>            
             {{#Notes}}
-              <li class="group relative inline-block shadow-xl rounded-xl">
+              <li class="group relative inline-block shadow-xl rounded-xl" data-created-order="{{CreationOrder}}">
                 <span class="absolute inset-0 rounded-xl group-hover:border-2 group-hover:border-dashed group-hover:border-teal-600"></span>
                 <div class="flex h-full rounded-xl bg-gradient-to-tl from-teal-500 via-green-500 to-yellow-500 p-0.5 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:shadow-sm">
                   <div class="rounded-xl bg-white pb-1 flex-grow">
@@ -93,7 +100,21 @@
           <p class="text-teal-500">Last updated: {{UpdateDate}} </p>
         </footer>
       </div>
-      
+
+      <script>
+        const noteSort = document.getElementById('note-sort');
+        const noteLists = document.querySelectorAll('[data-note-list]');
+
+        noteSort.addEventListener('change', () => {
+          noteLists.forEach((list) => {
+            const notes = [...list.children].sort((first, second) => {
+              const direction = noteSort.value === 'desc' ? -1 : 1;
+              return direction * (Number(first.dataset.createdOrder) - Number(second.dataset.createdOrder));
+            });
+            list.replaceChildren(...notes);
+          });
+        });
+      </script>
 
 </body>
 </html>
